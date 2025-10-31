@@ -3,11 +3,35 @@
 import { Video, Play } from "lucide-react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { useState, useRef } from "react"
+import type { FloatingMusicPlayerRef } from "./floating-music-player"
 
 export default function LocationSection() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 })
   const [showVideo, setShowVideo] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [wasMusicPlaying, setWasMusicPlaying] = useState(false)
+
+  const getMusicPlayer = (): FloatingMusicPlayerRef | null => {
+    if (typeof window === "undefined") return null
+    const refObject = (window as any).musicPlayerRef as React.RefObject<FloatingMusicPlayerRef> | undefined
+    return refObject?.current ?? null
+  }
+
+  const handleVideoPlay = () => {
+    const musicPlayer = getMusicPlayer()
+    if (musicPlayer?.isPlaying()) {
+      setWasMusicPlaying(true)
+      musicPlayer.pauseMusic()
+    }
+  }
+
+  const handleVideoPauseOrEnd = () => {
+    const musicPlayer = getMusicPlayer()
+    if (wasMusicPlaying) {
+      musicPlayer?.playMusic()
+      setWasMusicPlaying(false)
+    }
+  }
 
   const handleLoadVideo = () => {
     setShowVideo(true)
@@ -18,7 +42,7 @@ export default function LocationSection() {
   }
 
   return (
-    <section ref={ref} className="bg-muted py-16 px-4">
+    <section ref={ref} className="bg-muted py-28 px-4">
       <div className="mx-auto max-w-4xl">
         <div
           className={`text-center mb-12 transition-all duration-700 ${
@@ -43,13 +67,13 @@ export default function LocationSection() {
         >
           {!showVideo ? (
             <div
-              className="relative h-70 bg-cover bg-center rounded-lg overflow-hidden flex items-center justify-center cursor-pointer group"
+              className="relative h-96 bg-cover bg-center rounded-lg overflow-hidden flex items-center justify-center cursor-pointer group"
               style={{ backgroundImage: "url('/gallery/02.jpeg')" }}
               onClick={handleLoadVideo}
             >
               <div className="absolute inset-0 bg-black/50 transition-colors duration-300 group-hover:bg-black/60" />
               <div className="relative text-center text-white p-4">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border-2 border-white/30 transition-transform duration-300 group-hover:scale-110 shadow-lg mx-auto">
+                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border-2 border-white/30 transition-transform duration-300 group-hover:scale-110 shadow-lg">
                   <Play className="h-8 w-8 fill-current ml-1" />
                 </div>
                 <p className="mt-4 font-semibold tracking-wide drop-shadow-md">Ver cómo llegar</p>
@@ -63,6 +87,9 @@ export default function LocationSection() {
                 controls
                 preload="none"
                 autoPlay
+                onPlay={handleVideoPlay}
+                onPause={handleVideoPauseOrEnd}
+                onEnded={handleVideoPauseOrEnd}
               >
                 <source src="/gallery/como_llegar.mp4" type="video/mp4" />
                 Tu navegador no soporta la reproducción de video.

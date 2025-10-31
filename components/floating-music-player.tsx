@@ -5,6 +5,8 @@ import { Music2, X } from "lucide-react"
 
 export interface FloatingMusicPlayerRef {
   playMusic: () => void
+  pauseMusic: () => void
+  isPlaying: () => boolean
 }
 
 const FloatingMusicPlayer = forwardRef<FloatingMusicPlayerRef>((_props, ref) => {
@@ -13,10 +15,22 @@ const FloatingMusicPlayer = forwardRef<FloatingMusicPlayerRef>((_props, ref) => 
 
   useImperativeHandle(ref, () => ({
     playMusic: () => {
+      if (!audioElement) return
       setIsOpen(true)
+      // Pequeño delay para asegurar que el elemento de audio esté listo
       setTimeout(() => {
-        audioElement?.play()
+        audioElement.play().catch(() => {
+          // Fallback por si el autoplay falla
+          console.log("La reproducción automática fue bloqueada por el navegador.")
+        })
       }, 100)
+    },
+    pauseMusic: () => {
+      audioElement?.pause()
+    },
+    isPlaying: () => {
+      if (!audioElement) return false
+      return !audioElement.paused
     },
   }))
 
