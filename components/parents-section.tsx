@@ -56,8 +56,8 @@ export default function ParentsSection() {
               <h3 className="font-serif text-3xl font-semibold text-foreground mb-4">Padres de la Novia</h3>
               <div className="mx-auto h-px w-16 bg-primary/20 mb-6" />
             </div>
-            <p className="text-xl text-foreground mb-2 font-light">Tatiana Charry</p>
-            <p className="text-xl text-foreground font-light">Mario Artunduaga</p>
+            <p className="text-xl text-foreground mb-2 font-light">Tatiana Charry Medina</p>
+            <p className="text-xl text-foreground font-light">Mario Andres Artunduaga Molina</p>
           </div>
         </div>
       </div>
