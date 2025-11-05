@@ -8,8 +8,7 @@ export default function RsvpSection() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.3 })
 
   const handleRsvpClick = () => {
-    // Replace this URL with your actual Google Form URL
-    window.open("https://forms.google.com/your-form-url", "_blank")
+    window.open("https://forms.gle/qGbehW9v4Q5uK1zY6", "_blank")
   }
 
   return (
