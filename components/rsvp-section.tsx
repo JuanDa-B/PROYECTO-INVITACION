@@ -42,13 +42,7 @@ export default function RsvpSection() {
         >
           Tu presencia es muy importante para nosotros
         </p>
-        <p
-          className={`text-lg text-muted-foreground mb-12 transition-all duration-700 delay-400 ${
-            isVisible ? "animate-fade-in opacity-100" : "opacity-0"
-          }`}
-        >
-          Por favor confirma antes del <span className="font-semibold text-foreground">1 de diciembre</span>
-        </p>
+        
 
         <Button
           size="lg"

@@ -20,11 +20,11 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   title: "Ivon & Diego — Invitación de boda",
-  description: "Acompáñanos en nuestro día especial. 15 de diciembre de 2025.",
+  description: "Acompáñanos en nuestro día especial. 20 de diciembre de 2025.",
   generator: "v0.app",
   openGraph: {
     title: "Ivon & Diego — Invitación de boda",
-    description: "Acompáñanos en nuestro día especial. 15 de diciembre de 2025.",
+    description: "Acompáñanos en nuestro día especial. 20 de diciembre de 2025.",
     url: "https://example.com",
     siteName: "Invitación Ivon & Diego",
     images: [
